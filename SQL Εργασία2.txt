@@ -1,0 +1,59 @@
+//SQL Kώδικας Project
+
+
+//Παπαχρήστος Νικόλαος 321/2011126
+//Γουτακόλης Χρήστος   321/2011034
+//Λέρτας Γεώργιος      321/2011084
+
+
+
+
+create table Actor
+(
+ Actor_ID integer primary key,
+ Name varchar(30),
+ Surname varchar(30),
+ Birthdate date
+)
+
+create table Movie
+(
+ Movie_ID integer primary key NOT NULL,
+ Title varchar(50),
+ Main_Actor_ID integer references Actor(Actor_ID),
+ Publish_Studio_ID integer,
+ Date_Published date
+)
+
+create table Participation
+(
+ Participation_ID integer primary key NOT NULL identity(1,1),
+ Movie_ID integer references Movie(Movie_ID),
+ Actor_ID integer references Actor(Actor_ID)
+)
+
+create table AllowedUsers
+(
+ username varchar(15),
+ pass varchar(15)
+)
+
+insert into Actor values(01,'Mel','Gibson','1/3/1956')
+insert into Actor values(02,'Jason','Statham','9/12/1967')
+
+insert into Movie values(01,'Braveheart',01,12,'11/24/1995')
+insert into Movie values(02,'Crank',02,20,'10/5/2006')
+insert into Movie values(03,'The Patriot',01,14,'9/1/2000')
+insert into Movie values(04,'Blitz',02,9,'8/18/2011')
+
+insert into Participation values(01,01)
+insert into Participation values(02,02)
+insert into Participation values(03,01)
+insert into Participation values(04,02)
+
+insert into AllowedUsers values('myUser','kodikos')
+
+select * from AllowedUsers
+select * from Actor
+select * from Movie
+select * from Participation

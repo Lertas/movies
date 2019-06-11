@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TUModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="TUModelStoreContainer">
+          <EntitySet Name="Actor" EntityType="TUModel.Store.Actor" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Movie" EntityType="TUModel.Store.Movie" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Participation" EntityType="TUModel.Store.Participation" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Movie__Main_Acto__12FDD1B2" Association="TUModel.Store.FK__Movie__Main_Acto__12FDD1B2">
+            <End Role="Actor" EntitySet="Actor" />
+            <End Role="Movie" EntitySet="Movie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__Actor__16CE6296" Association="TUModel.Store.FK__Participa__Actor__16CE6296">
+            <End Role="Actor" EntitySet="Actor" />
+            <End Role="Participation" EntitySet="Participation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__Movie__15DA3E5D" Association="TUModel.Store.FK__Participa__Movie__15DA3E5D">
+            <End Role="Movie" EntitySet="Movie" />
+            <End Role="Participation" EntitySet="Participation" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Actor">
+          <Key>
+            <PropertyRef Name="Actor_ID" />
+          </Key>
+          <Property Name="Actor_ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" />
+          <Property Name="Surname" Type="varchar" MaxLength="30" />
+          <Property Name="Birthdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Movie">
+          <Key>
+            <PropertyRef Name="Movie_ID" />
+          </Key>
+          <Property Name="Movie_ID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Main_Actor_ID" Type="int" />
+          <Property Name="Publish_Studio_ID" Type="int" />
+          <Property Name="Date_Published" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Participation">
+          <Key>
+            <PropertyRef Name="Participation_ID" />
+          </Key>
+          <Property Name="Participation_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Movie_ID" Type="int" />
+          <Property Name="Actor_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK__Movie__Main_Acto__12FDD1B2">
+          <End Role="Actor" Type="TUModel.Store.Actor" Multiplicity="0..1" />
+          <End Role="Movie" Type="TUModel.Store.Movie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actor">
+              <PropertyRef Name="Actor_ID" />
+            </Principal>
+            <Dependent Role="Movie">
+              <PropertyRef Name="Main_Actor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__Actor__16CE6296">
+          <End Role="Actor" Type="TUModel.Store.Actor" Multiplicity="0..1" />
+          <End Role="Participation" Type="TUModel.Store.Participation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actor">
+              <PropertyRef Name="Actor_ID" />
+            </Principal>
+            <Dependent Role="Participation">
+              <PropertyRef Name="Actor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__Movie__15DA3E5D">
+          <End Role="Movie" Type="TUModel.Store.Movie" Multiplicity="0..1" />
+          <End Role="Participation" Type="TUModel.Store.Participation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie">
+              <PropertyRef Name="Movie_ID" />
+            </Principal>
+            <Dependent Role="Participation">
+              <PropertyRef Name="Movie_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+      warning 6013: The table/view 'TU.dbo.AllowedUsers' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="AllowedUsers">
+        <Property Name="username" Type="varchar" MaxLength="15" />
+        <Property Name="pass" Type="varchar" MaxLength="15" />
+      </EntityType>-->
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TUModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="TUEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actors" EntityType="TUModel.Actor" />
+          <EntitySet Name="Movies" EntityType="TUModel.Movie" />
+          <EntitySet Name="Participations" EntityType="TUModel.Participation" />
+          <AssociationSet Name="FK__Movie__Main_Acto__12FDD1B2" Association="TUModel.FK__Movie__Main_Acto__12FDD1B2">
+            <End Role="Actor" EntitySet="Actors" />
+            <End Role="Movie" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__Actor__16CE6296" Association="TUModel.FK__Participa__Actor__16CE6296">
+            <End Role="Actor" EntitySet="Actors" />
+            <End Role="Participation" EntitySet="Participations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__Movie__15DA3E5D" Association="TUModel.FK__Participa__Movie__15DA3E5D">
+            <End Role="Movie" EntitySet="Movies" />
+            <End Role="Participation" EntitySet="Participations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Actor">
+          <Key>
+            <PropertyRef Name="Actor_ID" />
+          </Key>
+          <Property Name="Actor_ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="Surname" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="Birthdate" Type="DateTime" />
+          <NavigationProperty Name="Movies" Relationship="TUModel.FK__Movie__Main_Acto__12FDD1B2" FromRole="Actor" ToRole="Movie" />
+          <NavigationProperty Name="Participations" Relationship="TUModel.FK__Participa__Actor__16CE6296" FromRole="Actor" ToRole="Participation" />
+        </EntityType>
+        <EntityType Name="Movie">
+          <Key>
+            <PropertyRef Name="Movie_ID" />
+          </Key>
+          <Property Name="Movie_ID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Main_Actor_ID" Type="Int32" />
+          <Property Name="Publish_Studio_ID" Type="Int32" />
+          <Property Name="Date_Published" Type="DateTime" />
+          <NavigationProperty Name="Actor" Relationship="TUModel.FK__Movie__Main_Acto__12FDD1B2" FromRole="Movie" ToRole="Actor" />
+          <NavigationProperty Name="Participations" Relationship="TUModel.FK__Participa__Movie__15DA3E5D" FromRole="Movie" ToRole="Participation" />
+        </EntityType>
+        <EntityType Name="Participation">
+          <Key>
+            <PropertyRef Name="Participation_ID" />
+          </Key>
+          <Property Name="Participation_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Movie_ID" Type="Int32" />
+          <Property Name="Actor_ID" Type="Int32" />
+          <NavigationProperty Name="Actor" Relationship="TUModel.FK__Participa__Actor__16CE6296" FromRole="Participation" ToRole="Actor" />
+          <NavigationProperty Name="Movie" Relationship="TUModel.FK__Participa__Movie__15DA3E5D" FromRole="Participation" ToRole="Movie" />
+        </EntityType>
+        <Association Name="FK__Movie__Main_Acto__12FDD1B2">
+          <End Role="Actor" Type="TUModel.Actor" Multiplicity="0..1" />
+          <End Role="Movie" Type="TUModel.Movie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actor">
+              <PropertyRef Name="Actor_ID" />
+            </Principal>
+            <Dependent Role="Movie">
+              <PropertyRef Name="Main_Actor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__Actor__16CE6296">
+          <End Role="Actor" Type="TUModel.Actor" Multiplicity="0..1" />
+          <End Role="Participation" Type="TUModel.Participation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actor">
+              <PropertyRef Name="Actor_ID" />
+            </Principal>
+            <Dependent Role="Participation">
+              <PropertyRef Name="Actor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__Movie__15DA3E5D">
+          <End Role="Movie" Type="TUModel.Movie" Multiplicity="0..1" />
+          <End Role="Participation" Type="TUModel.Participation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie">
+              <PropertyRef Name="Movie_ID" />
+            </Principal>
+            <Dependent Role="Participation">
+              <PropertyRef Name="Movie_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TUModelStoreContainer" CdmEntityContainer="TUEntities">
+          <EntitySetMapping Name="Actors"><EntityTypeMapping TypeName="TUModel.Actor"><MappingFragment StoreEntitySet="Actor">
+            <ScalarProperty Name="Actor_ID" ColumnName="Actor_ID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Surname" ColumnName="Surname" />
+            <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Movies"><EntityTypeMapping TypeName="TUModel.Movie"><MappingFragment StoreEntitySet="Movie">
+            <ScalarProperty Name="Movie_ID" ColumnName="Movie_ID" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Main_Actor_ID" ColumnName="Main_Actor_ID" />
+            <ScalarProperty Name="Publish_Studio_ID" ColumnName="Publish_Studio_ID" />
+            <ScalarProperty Name="Date_Published" ColumnName="Date_Published" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Participations"><EntityTypeMapping TypeName="TUModel.Participation"><MappingFragment StoreEntitySet="Participation">
+            <ScalarProperty Name="Participation_ID" ColumnName="Participation_ID" />
+            <ScalarProperty Name="Movie_ID" ColumnName="Movie_ID" />
+            <ScalarProperty Name="Actor_ID" ColumnName="Actor_ID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model">
+        <EntityTypeShape EntityType="TUModel.Actor" Width="1.5" PointX="0.75" PointY="1" Height="2.1725878906250005" IsExpanded="true" />
+        <EntityTypeShape EntityType="TUModel.Movie" Width="1.5" PointX="3" PointY="1" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="TUModel.Participation" Width="1.5" PointX="5.25" PointY="1.125" Height="1.9802864583333326" IsExpanded="true" />
+        <AssociationConnector Association="TUModel.FK__Movie__Main_Acto__12FDD1B2" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.0862939453125002" />
+          <ConnectorPoint PointX="3" PointY="2.0862939453125002" />
+        </AssociationConnector>
+        <AssociationConnector Association="TUModel.FK__Participa__Actor__16CE6296" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="1" />
+          <ConnectorPoint PointX="1.5" PointY="0.75" />
+          <ConnectorPoint PointX="4.875" PointY="0.75" />
+          <ConnectorPoint PointX="4.875" PointY="2.1151432291666663" />
+          <ConnectorPoint PointX="5.25" PointY="2.1151432291666663" />
+        </AssociationConnector>
+        <AssociationConnector Association="TUModel.FK__Participa__Movie__15DA3E5D" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="1.5575716145833332" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="1.5575716145833325" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="1.5575716145833332" />
+          <ConnectorPoint PointX="5.25" PointY="1.5575716145833332" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
