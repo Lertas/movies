@@ -1,4 +1,4 @@
-//SQL Kþäéêáò Project
+//SQL Project
 
 
 create table Actor
